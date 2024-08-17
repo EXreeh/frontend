@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img.logo {
+            width: 120px;
+        }
+
+        .settings-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .settings-container.dark-theme {
+            background-color: #495057;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-toggle label {
+            margin: 0;
+            margin-right: 10px;
+        }
+
+        .theme-toggle input[type="checkbox"] {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            -webkit-appearance: none;
+            background-color: #ccc;
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle input[type="checkbox"]:checked {
+            background-color: #007bff;
+        }
+
+        .theme-toggle input[type="checkbox"]:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle input[type="checkbox"]:checked:before {
+            transform: translateX(20px);
+        }
+
+        .settings-buttons {
+            margin-top: 20px;
+        }
+
+        .settings-buttons button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .dashboard-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .dashboard-button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://imgs.search.brave.com/JbUuNd_C5mUSywWr6tYCyqPHtX5fXHsGz8JynQ-tDGs/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4z/Lmljb25maW5kZXIu/Y29tL2RhdGEvaWNv/bnMvZXNzZW50aWFs/LXJvdW5kZWQvNjYv/Um91bmRlZC0xMS0x/MjgucG5n" alt="Logo" class="logo">
+        <h1>Settings</h1>
+    </div>
+
+    <div class="settings-container">
+        <h2>Settings</h2>
+        <div class="theme-toggle">
+            <label for="themeSwitch">Dark Theme:</label>
+            <input type="checkbox" id="themeSwitch">
+        </div>
+        <div class="settings-buttons">
+            <a href="dashboard.html" class="settings-buttons button dashboard-button">Dashboard</a>
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 Your Company. All Rights Reserved.
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeSwitch = document.getElementById('themeSwitch');
+        const body = document.body;
+        const settingsContainer = document.querySelector('.settings-container');
+
+        themeSwitch.addEventListener('change', () => {
+            if (themeSwitch.checked) {
+                body.classList.add('dark-theme');
+                settingsContainer.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-theme');
+                settingsContainer.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Apply saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                themeSwitch.checked = true;
+                body.classList.add('dark-theme');
+                settingsContainer.classList.add('dark-theme');
+            } else {
+                themeSwitch.checked = false;
+                body.classList.remove('dark-theme');
+                settingsContainer.classList.remove('dark-theme');
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('role');
+            localStorage.removeItem('loginHistory');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

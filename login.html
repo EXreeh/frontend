@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img.logo {
+            width: 120px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            cursor: pointer;
+        }
+
+        .login-button,
+        .signup-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .login-button:hover,
+        .signup-button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://imgs.search.brave.com/qNPHxm6eJVYOdfoQdPHO15c5gCFkahtFOn_WUHuEn70/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvQVI1/NzE0LTAwMi9waG90/by9raW5nLXBlbmd1/aW5zLWZhbGtsYW5k/LWlzbGFuZHMuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPS1R/TlF6Rzc4bzZfYTJu/akRiZDF0ZUFfMkVP/T0NIamI4cUlvX25m/ZFdSRDA9" alt="Logo" class="logo">
+        <h1>Login</h1>
+    </div>
+
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginInput">Username or Email:</label>
+            <input type="text" id="loginInput" required>
+            <label for="passwordInput">Password:</label>
+            <div style="position: relative;">
+                <input type="password" id="passwordInput" required>
+                <img src="eye-icon.png" alt="Show Password" class="eye-icon" onclick="togglePassword()">
+            </div>
+            <button type="submit" class="login-button">Login</button>
+            <p>Don't have an account? <a href="signup.html" class="signup-button">Sign Up</a></p>
+        </form>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 Your Company. All Rights Reserved.
+    </div>
+
+    <script>
+        
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const eyeIcon = document.querySelector('.eye-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = 'eye-icon-visible.png'; // Replace with the visible eye icon image
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = 'eye-icon.png'; // Replace with the hidden eye icon image
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const loginInput = document.getElementById('loginInput').value;
+            const passwordInput = document.getElementById('passwordInput').value;
+
+            // Simulate a successful login
+            // Here you would normally validate user credentials with a server
+            if (loginInput && passwordInput) {
+                // Save login history
+                const loginHistory = JSON.parse(localStorage.getItem('loginHistory')) || [];
+                loginHistory.push(new Date().toISOString());
+                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+
+                // Save user info (for demo purposes)
+                localStorage.setItem('username', loginInput);
+                localStorage.setItem('email', loginInput); // Assuming email is used as username
+                localStorage.setItem('role', 'User'); // Assuming role is 'User'
+
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Please enter valid credentials');
+            }
+        });
+    </script>
+</body>
+</html>
