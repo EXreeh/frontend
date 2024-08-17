@@ -33,6 +33,7 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         h2 {
@@ -102,6 +103,11 @@
     <div class="form-container">
         <h2>Login</h2>
         <form id="loginForm">
+            <label for="loginType">Login As:</label>
+            <select id="loginType" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
             <label for="loginInput">Username or Email:</label>
             <input type="text" id="loginInput" required>
             <label for="passwordInput">Password:</label>
@@ -119,7 +125,7 @@
     </div>
 
     <script>
-        
+        // Toggle Password Visibility
         function togglePassword() {
             const passwordInput = document.getElementById('passwordInput');
             const eyeIcon = document.querySelector('.eye-icon');
@@ -132,28 +138,39 @@
             }
         }
 
+        // Login Function
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const loginInput = document.getElementById('loginInput').value;
             const passwordInput = document.getElementById('passwordInput').value;
+            const loginType = document.getElementById('loginType').value;
 
-            // Simulate a successful login
-            // Here you would normally validate user credentials with a server
-            if (loginInput && passwordInput) {
-                // Save login history
-                const loginHistory = JSON.parse(localStorage.getItem('loginHistory')) || [];
-                loginHistory.push(new Date().toISOString());
-                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+            // Dummy user validation (replace with actual validation logic)
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+            const storedRole = localStorage.getItem('role');
 
-                // Save user info (for demo purposes)
-                localStorage.setItem('username', loginInput);
-                localStorage.setItem('email', loginInput); // Assuming email is used as username
-                localStorage.setItem('role', 'User'); // Assuming role is 'User'
-
-                // Redirect to dashboard
+            if (loginInput === storedUsername && passwordInput === storedPassword) {
+                if (loginType === 'admin' && storedRole !== 'admin') {
+                    alert('Invalid admin credentials.');
+                    return;
+                }
+                alert('Login successful!');
                 window.location.href = 'dashboard.html';
             } else {
-                alert('Please enter valid credentials');
+                alert('Invalid username or password.');
+            }
+        });
+
+        // Apply saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.querySelector('.form-container').classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.querySelector('.form-container').classList.remove('dark-theme');
             }
         });
     </script>
