@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <style>
-        /* General Styles */
+       
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
@@ -48,8 +48,7 @@
         }
 
         input[type="text"],
-        input[type="password"],
-        input[type="email"] {
+        input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -82,6 +81,23 @@
             width: 100%;
             bottom: 0;
         }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -93,38 +109,41 @@
     <div class="form-container">
         <h2>Create an Account</h2>
         <form id="signupForm">
-            <label for="signupUsername">Username:</label>
-            <input type="text" id="signupUsername" required>
-            <label for="signupEmail">Email:</label>
-            <input type="email" id="signupEmail" required>
-            <label for="signupPassword">Password:</label>
-            <input type="password" id="signupPassword" required>
+            <label for="usernameInput">Username:</label>
+            <input type="text" id="usernameInput" required>
+            <label for="emailInput">Email:</label>
+            <input type="text" id="emailInput" required>
+            <label for="passwordInput">Password:</label>
+            <input type="password" id="passwordInput" required>
             <button type="submit" class="signup-button">Sign Up</button>
-            <p>Already have an account? <a href="login.html">Login</a></p>
         </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Go to Login Page</a></p>
+        </div>
     </div>
 
-    
-
     <script>
-        
         document.getElementById('signupForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const username = document.getElementById('signupUsername').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
+            const usernameInput = document.getElementById('usernameInput').value;
+            const emailInput = document.getElementById('emailInput').value;
+            const passwordInput = document.getElementById('passwordInput').value;
 
-            if (username && email && password) {
-                // Save user info (for demo purposes)
-                localStorage.setItem('username', username);
-                localStorage.setItem('email', email);
-                localStorage.setItem('role', 'User'); // Assuming role is 'User'
-
-                // Redirect to login page
-                window.location.href = 'login.html';
-            } else {
-                alert('Please fill in all fields');
+            // Check if the username or email already exists
+            const existingUsername = localStorage.getItem('username');
+            const existingEmail = localStorage.getItem('email');
+            
+            if (usernameInput === existingUsername || emailInput === existingEmail) {
+                alert('Username or Email already exists. Please choose a different one.');
+                return;
             }
+
+            localStorage.setItem('username', usernameInput);
+            localStorage.setItem('email', emailInput);
+            localStorage.setItem('password', passwordInput);
+
+            alert('Account created successfully! You can now log in.');
+            window.location.href = 'login.html';
         });
     </script>
 </body>

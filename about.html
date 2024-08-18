@@ -52,34 +52,27 @@
             line-height: 1.6;
         }
         
-        .team-member {
-            display: flex;
-            align-items: center;
+        .user-info {
             margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #fafafa;
         }
         
-        .team-member img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-right: 15px;
+        .dashboard-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
         }
-        
-        .team-member h3 {
-            margin: 0;
-            color: #007bff;
-            font-size: 1.2rem;
+
+        .dashboard-button:hover {
+            background-color: #0056b3;
         }
-        
-        .team-member p {
-            margin: 5px 0;
-            color: #666;
-        }
-        
+
         .footer {
             background-color: #007bff;
             color: white;
@@ -105,12 +98,14 @@
             <p><strong>Role:</strong> <span id="roleDisplay"></span></p>
             <p><strong>Logins Today:</strong> <span id="loginCountDisplay"></span></p>
         </div>
+        <a href="dashboard.html" class="dashboard-button">Go to Dashboard</a>
     </div>
 
-   
+    <div class="footer">
+        <!-- Optional footer content can be added here -->
+    </div>
 
     <script>
-        
         // JavaScript to Display User Info and Login Count
         document.addEventListener('DOMContentLoaded', function() {
             const username = localStorage.getItem('username');

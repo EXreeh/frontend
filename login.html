@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
@@ -50,17 +49,25 @@
 
         input[type="text"],
         input[type="password"] {
-            width: 100%;
+            width: calc(100% - 30px); /* Adjust width to make space for the icon */
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .password-container {
+            position: relative;
         }
 
         .eye-icon {
             position: absolute;
-            right: 20px;
-            top: 60px;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 20px;
             cursor: pointer;
         }
 
@@ -111,46 +118,40 @@
             <label for="loginInput">Username or Email:</label>
             <input type="text" id="loginInput" required>
             <label for="passwordInput">Password:</label>
-            <div style="position: relative;">
+            <div class="password-container">
                 <input type="password" id="passwordInput" required>
-                <img src="https://www.flaticon.com/free-icons/eye" alt="Show Password" class="eye-icon" onclick="togglePassword()">
+                <img src="https://imgs.search.brave.com/dKy6z9OxIVFQJNtufsfk9pqaoa65HmXe4jbi_OoyVuQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzAwLzAyLzE5/LzM2MF9GXzUwMDAy/MTk5N19hVnZVR3Nu/Wlk5TzJXUEJKY2xQ/enZWc1dXM3Noc0oy/WC5qcGc" alt="Show Password" class="eye-icon" onclick="togglePassword()">
             </div>
             <button type="submit" class="login-button">Login</button>
             <p>Don't have an account? <a href="signup.html" class="signup-button">Sign Up</a></p>
         </form>
     </div>
 
-   
-
     <script>
-        // Toggle Password Visibility
         function togglePassword() {
             const passwordInput = document.getElementById('passwordInput');
             const eyeIcon = document.querySelector('.eye-icon');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                eyeIcon.src = 'eye-icon-visible.png'; // Replace with the visible eye icon image
+                eyeIcon.src = 'eye-icon-visible.png'; // Update to your visible icon URL
             } else {
                 passwordInput.type = 'password';
-                eyeIcon.src = 'eye-icon.png'; // Replace with the hidden eye icon image
+                eyeIcon.src = 'eye-icon.png'; // Update to your hidden icon URL
             }
         }
 
-        // Login Function
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const loginInput = document.getElementById('loginInput').value;
             const passwordInput = document.getElementById('passwordInput').value;
             const loginType = document.getElementById('loginType').value;
 
-            // Dummy admin credentials (replace with actual credentials)
             const adminCredentials = {
                 username: 'admin',
                 email: 'admin@example.com',
                 password: 'admin123'
             };
 
-            // Dummy user credentials (replace with actual user validation)
             const storedUsername = localStorage.getItem('username') || 'user';
             const storedPassword = localStorage.getItem('password') || 'user123';
             const storedRole = localStorage.getItem('role') || 'user';
@@ -158,15 +159,15 @@
             if (loginType === 'admin' &&
                 (loginInput === adminCredentials.username || loginInput === adminCredentials.email) &&
                 passwordInput === adminCredentials.password) {
-                // Admin login success
                 localStorage.setItem('role', 'admin');
+                updateLoginCount('admin');
                 alert('Admin login successful!');
                 window.location.href = 'dashboard.html';
             } else if (loginType === 'user' &&
                 loginInput === storedUsername &&
                 passwordInput === storedPassword) {
-                // User login success
                 localStorage.setItem('role', 'user');
+                updateLoginCount('user');
                 alert('User login successful!');
                 window.location.href = 'dashboard.html';
             } else {
@@ -174,7 +175,12 @@
             }
         });
 
-        // Apply saved theme on page load
+        function updateLoginCount(role) {
+            let loginCount = localStorage.getItem(`${role}LoginCount`) || 0;
+            loginCount = parseInt(loginCount) + 1;
+            localStorage.setItem(`${role}LoginCount`, loginCount);
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {

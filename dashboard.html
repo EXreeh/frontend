@@ -3,93 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Dashboard</title>
     <style>
         /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
         }
 
-        img.logo {
-            width: 120px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .dashboard-header {
+        .header {
             background-color: #007bff;
             color: white;
-            padding: 20px;
+            padding: 10px 20px; /* Thinner header */
             text-align: center;
+            position: relative;
         }
 
-        .dashboard-header h1 {
-            margin: 0;
-            font-size: 2rem;
+        .header img.logo {
+            width: 100px;
         }
 
-        .nav-menu {
+        .main-container {
             display: flex;
-            justify-content: center;
-            background-color: #343a40;
-            padding: 10px 0;
+            flex: 1;
         }
 
-        .nav-menu a {
-            color: white;
+        .sidebar {
+            background-color: #f1f1f1;
+            width: 250px;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            position: fixed;
+            top: 50px;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: #007bff;
             text-decoration: none;
-            padding: 14px 20px;
             font-size: 1rem;
+            margin-bottom: 10px;
         }
 
-        .nav-menu a:hover {
-            background-color: #495057;
+        .sidebar a:hover {
+            background-color: #e9ecef;
             border-radius: 4px;
         }
 
-        .dashboard-content {
+        .content {
+            margin-left: 270px;
             padding: 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .dashboard-content h2 {
-            margin-top: 0;
-            color: #007bff;
-            font-size: 1.5rem;
-        }
-
-        .dashboard-content p {
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .dashboard-content .info-card {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .info-card h3 {
-            margin-top: 0;
-            color: #007bff;
-            font-size: 1.25rem;
-        }
-
-        .info-card p {
-            font-size: 1rem;
-            color: #333;
+            flex: 1;
+            overflow-y: auto;
         }
 
         .footer {
@@ -97,42 +71,90 @@
             color: white;
             text-align: center;
             padding: 10px;
-            position: fixed;
+            position: relative;
             width: 100%;
             bottom: 0;
+        }
+
+        .settings-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .settings-button:hover {
+            background-color: #0056b3;
+        }
+
+        .theme-toggle {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .theme-toggle h2 {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-header">
-        <img src="https://imgs.search.brave.com/dsRxX9MNxgZMT4qHcqsl6IqedqonJa9yA2Ds1s3Brl8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9hdmF0YXItcmVz/b3VyY2luZy1jb21w/YW55XzEyNTQ5Njct/NjY1My5qcGc_c2l6/ZT02MjYmZXh0PWpw/Zw" alt="Logo" class="logo">
-        <h1>Welcome to Your Dashboard</h1>
+    <div class="header">
+        <img src="https://imgs.search.brave.com/qNPHxm6eJVYOdfoQdPHO15c5gCFkahtFOn_WUHuEn70/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvQVI1/NzE0LTAwMi9waG90/by9raW5nLXBlbmd1/aW5zLWZhbGtsYW5k/LWlzbGFuZHMuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPS1R/TlF6Rzc4bzZfYTJu/akRiZDF0ZUFfMkVP/T0NIamI4cUlvX25m/ZFdSRDA9" alt="Logo" class="logo">
+        <h1>Dashboard</h1>
     </div>
 
-    <div class="nav-menu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="about.html">About</a>
-        <a href="inventory.html">Inventory</a>
-        <a href="customers.html">Customers</a>
-        <a href="reports.html">Reports</a>
-        <a href="settings.html">Settings</a>
-    </div>
-
-    <div class="dashboard-content">
-        <h2>Dashboard Content</h2>
-        <div class="info-card">
-            <h3>User Information</h3>
-            <p>Display user-specific content here.</p>
+    <div class="main-container">
+        <div class="sidebar">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="about.html">About</a>
+            <a href="inventory.html">Inventory</a>
+            <a href="customers.html">Customers</a>
+            <a href="reports.html">Reports</a>
+            <a href="settings.html">Settings</a>
         </div>
-        <div class="info-card">
-            <h3>Recent Activities</h3>
-            <p>Show recent activities or updates here.</p>
+
+        <div class="content">
+            <div class="theme-toggle">
+                <h2>Welcome to the Dashboard</h2>
+                <!-- Removed duplicate settings button here -->
+            </div>
+
+            <div>
+                <!-- Dashboard content goes here -->
+                <p>Here is where you can display various details, charts, or other relevant information.</p>
+            </div>
         </div>
     </div>
 
-    
-    <script text="JavaScript">
-        
+    <!-- <div class="footer">
+        <button class="settings-button" onclick="logout()">Logout</button>
+    </div> -->
+
+    <script>
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            localStorage.removeItem('role');
+            window.location.href = 'login.html';
+        }
+
+        // Apply saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.querySelector('.content').classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.querySelector('.content').classList.remove('dark-theme');
+            }
+        });
     </script>
 </body>
 </html>
