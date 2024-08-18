@@ -113,7 +113,7 @@
             <label for="passwordInput">Password:</label>
             <div style="position: relative;">
                 <input type="password" id="passwordInput" required>
-                <img src="eye-icon.png" alt="Show Password" class="eye-icon" onclick="togglePassword()">
+                <img src="https://www.flaticon.com/free-icons/eye" alt="Show Password" class="eye-icon" onclick="togglePassword()">
             </div>
             <button type="submit" class="login-button">Login</button>
             <p>Don't have an account? <a href="signup.html" class="signup-button">Sign Up</a></p>
@@ -145,20 +145,34 @@
             const passwordInput = document.getElementById('passwordInput').value;
             const loginType = document.getElementById('loginType').value;
 
-            // Dummy user validation (replace with actual validation logic)
-            const storedUsername = localStorage.getItem('username');
-            const storedPassword = localStorage.getItem('password');
-            const storedRole = localStorage.getItem('role');
+            // Dummy admin credentials (replace with actual credentials)
+            const adminCredentials = {
+                username: 'admin',
+                email: 'admin@example.com',
+                password: 'admin123'
+            };
 
-            if (loginInput === storedUsername && passwordInput === storedPassword) {
-                if (loginType === 'admin' && storedRole !== 'admin') {
-                    alert('Invalid admin credentials.');
-                    return;
-                }
-                alert('Login successful!');
+            // Dummy user credentials (replace with actual user validation)
+            const storedUsername = localStorage.getItem('username') || 'user';
+            const storedPassword = localStorage.getItem('password') || 'user123';
+            const storedRole = localStorage.getItem('role') || 'user';
+
+            if (loginType === 'admin' &&
+                (loginInput === adminCredentials.username || loginInput === adminCredentials.email) &&
+                passwordInput === adminCredentials.password) {
+                // Admin login success
+                localStorage.setItem('role', 'admin');
+                alert('Admin login successful!');
+                window.location.href = 'dashboard.html';
+            } else if (loginType === 'user' &&
+                loginInput === storedUsername &&
+                passwordInput === storedPassword) {
+                // User login success
+                localStorage.setItem('role', 'user');
+                alert('User login successful!');
                 window.location.href = 'dashboard.html';
             } else {
-                alert('Invalid username or password.');
+                alert('Invalid username, email, or password.');
             }
         });
 
